@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 async function fetchTrendingCoins() {
     const response = await fetch("https://api.coingecko.com/api/v3/search/trending", {
         headers: {
-            "accept": "application/json",
-            "x_cg_pro_api_key": "CG-QR9H7CUZMdKYowtqqNWecw71" // Replace with your actual API key
+            "accept": "application/json"
         }
     });
 
@@ -30,9 +29,13 @@ function displayCoins(coins) {
 
         coinElement.innerHTML = `
             <img src="${coin.thumb}" alt="${coin.name}">
-            <h2>${coin.name} (${coin.symbol.toUpperCase()})</h2>
-            <p>Price: $${coin.data.price.toFixed(2)}</p>
-            <p>Market Cap: ${coin.market_cap}</p>
+            <h2>
+                <a href="https://www.coingecko.com/en/coins/${coin.id}" target="_blank">
+                    ${coin.name} (${coin.symbol.toUpperCase()})
+                </a>
+            </h2>
+            <p>Price: $${coin.price || "N/A"}</p>
+            <p>Market Cap: ${coin.market_cap || "N/A"}</p>
             <p>Rank: ${coin.market_cap_rank}</p>
         `;
 
